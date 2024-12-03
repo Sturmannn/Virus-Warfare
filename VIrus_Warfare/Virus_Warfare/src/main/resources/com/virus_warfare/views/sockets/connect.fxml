@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<VBox alignment="CENTER" prefHeight="200.0" prefWidth="268.0" spacing="10"
+      style="-fx-background-color: linear-gradient(to bottom, #2c3e50, #4ca1af); -fx-border-color: #34495e; -fx-background-radius: 10; -fx-padding: 20; -fx-spacing: 15;"
+      xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.virus_warfare.sockets.client.controllers.ConnectController">
+    <Label style="-fx-font-size: 18; -fx-text-fill: white; -fx-font-weight: bold;" text="Подключение к серверу"/>
+    <TextField fx:id="nameField" promptText="Имя игрока"
+               style="-fx-background-color: #ecf0f1; -fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-padding: 5; -fx-font-size: 14;"/>
+
+    <Button fx:id="connectButton" onAction="#onConnectButtonClick"
+            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 5; -fx-padding: 10 20;"
+            text="Подключиться"/>
+
+    <Label fx:id="statusConnect" style="-fx-text-fill: black; -fx-font-size: 17;"/>
+</VBox>
