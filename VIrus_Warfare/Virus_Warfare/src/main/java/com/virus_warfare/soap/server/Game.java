@@ -1,8 +1,7 @@
 package com.virus_warfare.soap.server;
 
-import com.virus_warfare.soap.shared.GameService;
-import com.virus_warfare.soap.shared.Player;
 import com.virus_warfare.soap.shared.CellValue;
+import com.virus_warfare.soap.shared.Player;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -37,7 +36,6 @@ public class Game {
         this.cols = cols;
         grid = new CellValue[rows][cols];
         players = new ArrayList<>();
-//        clientSockets = new ArrayList<>();
         this.gameService = gameService;
         clear();
     }
@@ -116,7 +114,6 @@ public class Game {
                     return;
                 }
             }
-//            clientSockets.add(clientSocket);
             assignPlayerSymbol(player);
         } finally {
             lock.unlock();
@@ -134,10 +131,6 @@ public class Game {
             if (!players.remove(player)) {
                 System.err.println("Player not found (removePlayer): " + player.getName());
             }
-
-//            if (!clientSockets.remove(clientSocket)) {
-//                System.err.println("Client socket not found (removePlayer): " + player.getName());
-//            }
         } finally {
             lock.unlock();
         }
@@ -152,17 +145,6 @@ public class Game {
             lock.unlock();
         }
     }
-
-//    public void notifyAllPlayers(Response response) {
-//        lock.lock();
-//        try {
-//            for (ServerSocketWrapper clientSocket : clientSockets) {
-//                clientSocket.sendResponse(response);
-//            }
-//        } finally {
-//            lock.unlock();
-//        }
-//    }
 
     private void assignPlayerSymbol(Player player) {
         lock.lock();
@@ -279,7 +261,6 @@ public class Game {
         ResponseAction winner = currentPlayer == 1 ? ResponseAction.GAME_OVER_WIN_X : ResponseAction.GAME_OVER_WIN_O;
 
         Response response = new Response(winner, convertArrayToList(grid), true);
-//        Response response = new Response(winner, grid, true);
         gameService.notifyAllPlayers(response);
     }
 

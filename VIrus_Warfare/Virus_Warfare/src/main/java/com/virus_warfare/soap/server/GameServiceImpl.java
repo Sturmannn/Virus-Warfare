@@ -5,7 +5,6 @@ import com.virus_warfare.soap.shared.CellValue;
 import com.virus_warfare.soap.shared.GameService;
 import com.virus_warfare.soap.shared.Player;
 
-import javax.jws.WebMethod;
 import javax.jws.WebService;
 import java.util.Map;
 import java.util.UUID;
@@ -20,19 +19,13 @@ public class GameServiceImpl implements GameService {
     private final Map<UUID, Player> players = new ConcurrentHashMap<>();
     private final Map<UUID, Response> pendingResponses = new ConcurrentHashMap<>();
 
-//    public void notifyAllPlayers(Response response) {
-//        synchronized (pendingResponses) {
-//            pendingResponses.replaceAll((p, v) -> response);
-//            pendingResponses.notifyAll();
-//        }
-//    }
+
     public void notifyAllPlayers(Response response) {
         synchronized (pendingResponses) {
             players.forEach((id, player) -> pendingResponses.put(id, response));
             pendingResponses.notifyAll();
         }
     }
-
 
     @Override
     public Response connect(String nickname) {
@@ -62,10 +55,6 @@ public class GameServiceImpl implements GameService {
             }
             notifyAllPlayers(new Response(ResponseAction.PLAYERS_INFO, game.getPlayers()));
             return new Response(ResponseAction.GAME_START, game.getGrid(), secondPlayer);
-
-
-//            notifyAllPlayers(new Response(ResponseAction.GAME_START, game.getGrid(), true));
-//            return new Response(ResponseAction.PLAYERS_INFO, game.getPlayers());
 
         } else if (game.getPlayers().isEmpty()) {
             System.out.println("First player " + nickname);
@@ -98,32 +87,6 @@ public class GameServiceImpl implements GameService {
             return pendingResponses.remove(id);
         }
     }
-//    @Override
-//    public Response longPolling(UUID id) {
-//        synchronized (pendingResponses) {
-//            // Таймаут ожидания: например, 30 секунд
-//            final long timeout = 30_000;
-//            long startTime = System.currentTimeMillis();
-//
-//            while (!pendingResponses.containsKey(id)) {
-//                try {
-//                    long elapsedTime = System.currentTimeMillis() - startTime;
-//                    if (elapsedTime >= timeout) {
-//                        System.err.println("Timeout for longPolling: " + elapsedTime + " ms " + players.get(id).getName()));
-//                        return new Response(ResponseAction.ERROR_POLLING);
-//                    }
-//                    pendingResponses.wait(timeout - elapsedTime);
-//                } catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt();
-//                    System.err.println("Thread was interrupted: " + e.getMessage());
-//                    return new Response(ResponseAction.ERROR_POLLING);
-//                }
-//            }
-//            // Возвращаем и удаляем ответ для данного клиента
-//            return pendingResponses.remove(id);
-//        }
-//    }
-
 
     @Override
     public void makeMove(UUID id, int x, int y) {

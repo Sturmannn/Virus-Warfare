@@ -1,7 +1,6 @@
 package com.virus_warfare.soap.server;
 
 
-
 import com.virus_warfare.soap.shared.CellValue;
 import com.virus_warfare.soap.shared.Player;
 
@@ -15,7 +14,6 @@ public class Response {
     @XmlElementWrapper(name = "grid")
     @XmlElement
     private List<List<CellValue>> grid;
-//    private CellValue[][] grid;
     @XmlElement
     private ResponseAction action;
     @XmlElement
@@ -23,10 +21,8 @@ public class Response {
     @XmlElement
     private List<Player> players;
 
-    public Response(){
-        System.err.println("Empty Response constructor");
+    public Response() {
     }
-
 
     public Response(ResponseAction action, List<List<CellValue>> grid, boolean isGrid) {
         this.action = action;
@@ -104,6 +100,7 @@ public class Response {
     public ResponseAction getAction() {
         return action;
     }
+
     public String getStringMessage() {
         return message;
     }

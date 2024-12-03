@@ -11,12 +11,16 @@ public interface GameService {
 
     @WebMethod
     Response connect(String nickname);
+
     @WebMethod
     Response longPolling(UUID id);
+
     @WebMethod
     void makeMove(UUID id, int x, int y);
+
     @WebMethod
     void restartGame(UUID id);
+
     @WebMethod
     void skipMove(UUID id);
 }

@@ -1,10 +1,8 @@
 package com.virus_warfare.soap.shared;
 
 
-import java.util.UUID;
-import com.virus_warfare.soap.shared.CellValue;
-
 import javax.xml.bind.annotation.*;
+import java.util.UUID;
 
 @XmlType(name = "Player")
 @XmlRootElement(name = "Player")
@@ -18,7 +16,6 @@ public class Player {
     private CellValue symbol = null;
 
     public Player() {
-        System.err.println("Empty Player constructor");
     }
 
     public Player(String nickname, CellValue symbol) {
@@ -34,7 +31,7 @@ public class Player {
         this.symbol = symbol;
     }
 
-    public Player (String nickname, UUID id, CellValue symbol) {
+    public Player(String nickname, UUID id, CellValue symbol) {
         this.nickname = nickname;
         this.id = id;
         this.symbol = symbol;

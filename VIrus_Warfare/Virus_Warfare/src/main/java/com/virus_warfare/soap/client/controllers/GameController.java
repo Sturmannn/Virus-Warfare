@@ -28,7 +28,7 @@ public class GameController implements ResponseHandler {
     private Label playerXLabel;
     @FXML
     private Label playerOLabel;
-    private StackPane[][] cells;              // Хранение всех клеток игрового поля
+    private StackPane[][] cells;  // Хранение всех клеток игрового поля
 
     private Player player = null;
     private GameService clientProxy = null; // Клиентский прокси для общения с сервером
@@ -116,10 +116,6 @@ public class GameController implements ResponseHandler {
                 background.setStroke(Color.BLACK);
                 cell.getChildren().add(background);
 
-
-//                CellValue cellValue = CellValue.fromValue(grid.get(row).get(col).value());
-//                String cellValue = grid.get(row).get(col).toString();
-
                 Object rawValue = grid.get(row).get(col); // Могут быть строки или CellValue
                 CellValue cellValue;
                 if (rawValue instanceof String) {
@@ -168,11 +164,8 @@ public class GameController implements ResponseHandler {
 
         System.out.println("Cell clicked: " + x + ", " + y);
 
-        // Отправка ход на сервер
+        // Отправка хода на сервер
         clientProxy.makeMove(player.getID(), x, y);
-//        Message moveMessage = new Message(MessageAction.MAKE_MOVE, clientSocketWrapper.getPlayer(), x, y);
-//        clientSocketWrapper.sendMessage(moveMessage);
-
         System.out.println("Move sent: " + x + ", " + y);
     }
 
@@ -267,8 +260,6 @@ public class GameController implements ResponseHandler {
     private void restartGame() {
         isGameOver = false;
         clientProxy.restartGame(player.getID());
-//        Message restartMessage = new Message(MessageAction.RESTART, clientSocketWrapper.getPlayer());
-//        clientSocketWrapper.sendMessage(restartMessage);
     }
 
 
@@ -276,7 +267,5 @@ public class GameController implements ResponseHandler {
     @FXML
     private void skipTurn() {
         clientProxy.skipMove(player.getID());
-//        Message skipMessage = new Message(MessageAction.SKIP_MOVE, clientSocketWrapper.getPlayer());
-//        clientSocketWrapper.sendMessage(skipMessage);
     }
 }
